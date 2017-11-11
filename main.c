@@ -5,20 +5,19 @@
 
 char** parse_args(char *line) {
 	char **arg_array = malloc(64*sizeof(char*));
-	printf("hi");
 	
 	if (!strchr(line, ' ')) {
-		printf("no space");
 		*(arg_array) = line;
-		*(arg_array) = 0;
+		*(arg_array+1) = 0;
 		return arg_array;
 	}
 	
 	int index = 0;
 	
+	//the program to run
 	*(arg_array + (index++) ) = strsep(&line, " ");
-	printf("%s\n", line);
 
+	//get the args
 	while(line) {
 		*(arg_array + (index++) ) = strsep(&line, " ");
 	}
@@ -29,13 +28,13 @@ char** parse_args(char *line) {
 }
 
 int main() {
-	char line[] = "ps -aux";
+	char line[] = "ps -a -ux";
 	char **args = parse_args(line);
 	
 	int test = 0;
 	
 	while (*(args+test)) {
-		printf("%s\n", *(args+test));
+		printf("component: %s\n", *(args+test));
 		test++;
 	}
 	
